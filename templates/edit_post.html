@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <title>記事編集</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 40px;
+            background-color: #f0f8ff;
+            color: #333;
+        }
+        h1 {
+            color: #007acc;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            max-width: 800px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007acc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #005f99;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #007acc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <!-- ✅ CKEditor CDN 読み込み -->
+    <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+</head>
+<body>
+    <h1>記事編集</h1>
+    <form action="{{ url_for('edit_post', post_id=post.id) }}" method="post">
+        <label for="title">タイトル</label>
+        <input type="text" id="title" name="title" value="{{ post.title }}" required>
+
+        <label for="content">内容</label>
+        <textarea id="content" name="content" rows="10" required>{{ post.content }}</textarea>
+
+        <button type="submit">更新</button>
+    </form>
+    <a href="{{ url_for('blog') }}">← 記事一覧に戻る</a>
+
+    <!-- ✅ CKEditor の初期化 -->
+    <script>
+        CKEDITOR.replace('content', {
+            height: 300,
+            language: 'ja'
+        });
+    </script>
+</body>
+</html>
