@@ -7,17 +7,21 @@
         body {
             font-family: sans-serif;
             padding: 40px;
-            background-color: #f0f8ff;
+            background-image: url("{{ url_for('static', filename='images/k8s-top.jpg') }}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
             color: #333;
         }
 
         h1 {
-            color: #007acc;
+            color: #ffffff;
             font-size: 36px;
         }
 
         .post {
-            background: white;
+            background: rgba(255, 255, 255, 0.42);
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
@@ -25,9 +29,9 @@
         }
 
         .post-title {
-            font-size: 28px; /* タイトルを大きく */
+            font-size: 28px;
             font-weight: bold;
-            color: #007acc;
+            color: #ffffff;
             margin: 0;
         }
 
@@ -69,7 +73,7 @@
 </head>
 <body>
 
-    <h1>ブログ記事一覧</h1>
+    <h1>技術記事一覧</h1>
 
     <!-- 新規投稿へのリンク -->
     <a class="top-link" href="{{ url_for('new_post') }}">＋ New Wiki</a>

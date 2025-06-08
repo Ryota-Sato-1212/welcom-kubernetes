@@ -4,11 +4,20 @@
     <meta charset="UTF-8">
     <title>{{ post.title }}</title>
     <style>
-        body {
+        html, body {
+            height: 100%;
+            margin: 0;
             font-family: sans-serif;
-            padding: 40px;
-            background-color: #fff;
+        }
+
+        body {
+            background-image: url("{{ url_for('static', filename='images/27230.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             color: #333;
+            padding: 40px;
+            box-sizing: border-box;
         }
 
         h1 {
@@ -16,7 +25,7 @@
         }
 
         .content {
-            background: #f9f9f9;
+            background: rgba(255, 255, 255, 0.9); /* 半透明 */
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 20px;
@@ -58,22 +67,32 @@
         .back-link:hover {
             text-decoration: underline;
         }
+
+        .wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 12px;
+        }
     </style>
 </head>
 <body>
-    <h1>{{ post.title }}</h1>
+    <div class="wrapper">
+        <h1>{{ post.title }}</h1>
 
-    <div class="content">
-        {{ post.content | safe }}
+        <div class="content">
+            {{ post.content | safe }}
+        </div>
+
+        <div class="buttons">
+            <a href="{{ url_for('edit_post', post_id=post.id) }}" class="button">編集</a>
+            <form action="{{ url_for('delete_post', post_id=post.id) }}" method="post" style="display:inline;" onsubmit="return confirm('削除してもよろしいですか？');">
+                <button type="submit" class="button delete-button">削除</button>
+            </form>
+        </div>
+
+        <a href="{{ url_for('blog') }}" class="back-link">← 一覧に戻る</a>
     </div>
-
-    <div class="buttons">
-        <a href="{{ url_for('edit_post', post_id=post.id) }}" class="button">編集</a>
-        <form action="{{ url_for('delete_post', post_id=post.id) }}" method="post" style="display:inline;" onsubmit="return confirm('削除してもよろしいですか？');">
-            <button type="submit" class="button delete-button">削除</button>
-        </form>
-    </div>
-
-    <a href="{{ url_for('blog') }}" class="back-link">← 一覧に戻る</a>
 </body>
 </html>
