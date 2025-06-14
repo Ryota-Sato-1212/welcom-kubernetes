@@ -78,6 +78,9 @@
     <!-- 新規投稿へのリンク -->
     <a class="top-link" href="{{ url_for('new_post') }}">＋ New Wiki</a>
 
+    <!-- ここにAI検索ページへのリンクを追加 -->
+    <a class="top-link" href="{{ url_for('search') }}">🔍 AI検索ページへ</a>
+
     <!-- 記事タイトル一覧 -->
     {% for post in posts %}
     <div class="post">

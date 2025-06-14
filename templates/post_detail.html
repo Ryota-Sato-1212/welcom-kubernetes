@@ -98,9 +98,9 @@
         </div>
 
         <div class="buttons">
-            <a href="{{ url_for('edit_post', post_id=post.id) }}" class="button">編集</a>
+            <a href="{{ url_for('edit_post', post_id=post.id) }}" class="button">edit</a>
             <form action="{{ url_for('delete_post', post_id=post.id) }}" method="post" style="display:inline;" onsubmit="return confirm('削除してもよろしいですか？');">
-                <button type="submit" class="button delete-button">削除</button>
+                <button type="submit" class="button delete-button">delete</button>
             </form>
         </div>
 
