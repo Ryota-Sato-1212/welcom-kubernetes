@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>AI検索結果</title>
+    <title>AI Search Results</title>
     <style>
         body {
             background-image: url("{{ url_for('static', filename='images/ai-pic.jpg') }}");
@@ -34,8 +34,8 @@
     </style>
 </head>
 <body>
-    <h1>検索結果：「{{ query }}」</h1>
+    <h1>Search Results：「{{ query }}」</h1>
     <pre>{{ result }}</pre>
-    <a href="{{ url_for('search') }}">← 検索に戻る</a>
+    <a href="{{ url_for('search') }}">← Back</a>
 </body>
 </html>
