@@ -2,13 +2,50 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>AI検索</title>
+    <title>AI SEARCH</title>
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='images/ai-pic.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            font-family: sans-serif;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            width: 300px;
+            padding: 5px;
+        }
+
+        button {
+            padding: 5px 10px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #fff;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <h1>AI検索フォーム</h1>
+
     <form method="post">
-        <input type="text" name="query" placeholder="検索語句を入力" required style="width:300px; padding:5px;">
+        <input type="text" name="query" placeholder="検索語句を入力" required>
         <button type="submit">検索</button>
     </form>
+
+    <a href="{{ url_for('blog') }}">← Back</a>
 </body>
 </html>

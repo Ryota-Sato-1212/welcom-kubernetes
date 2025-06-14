@@ -69,19 +69,23 @@
         a.back-link:hover {
             text-decoration: underline;
         }
+
+        iframe.killercoda {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
     </style>
 </head>
 <body>
 
     <h1>技術記事一覧</h1>
 
-    <!-- 新規投稿へのリンク -->
     <a class="top-link" href="{{ url_for('new_post') }}">＋ New Wiki</a>
+    <a class="top-link" href="{{ url_for('search') }}">🔍 AI Search</a>
 
-    <!-- ここにAI検索ページへのリンクを追加 -->
-    <a class="top-link" href="{{ url_for('search') }}">🔍 AI検索ページへ</a>
-
-    <!-- 記事タイトル一覧 -->
     {% for post in posts %}
     <div class="post">
         <h2 class="post-title">
@@ -90,7 +94,16 @@
     </div>
     {% endfor %}
 
-    <!-- ホームに戻る -->
+    <!-- Killercoda Kubernetes演習環境の埋め込み -->
+    <div class="post">
+        <h2 class="post-title">🎮 Kubernetes演習環境 (Killercoda)</h2>
+        <iframe
+            class="killercoda"
+            src="https://killercoda.com/playgrounds/scenario/kubernetes"
+            allowfullscreen>
+        </iframe>
+    </div>
+
     <a href="/" class="back-link">← ホームに戻る</a>
 
 </body>

@@ -3,6 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>AI検索結果</title>
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='images/ai-pic.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            font-family: sans-serif;
+        }
+
+        pre {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 8px;
+            max-width: 800px;
+            white-space: pre-wrap;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #fff;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <h1>検索結果：「{{ query }}」</h1>
