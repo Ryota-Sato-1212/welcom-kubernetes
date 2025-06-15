@@ -1,6 +1,8 @@
 # Welcome Kubernetes - Kubernetes学習環境
 
 このプロジェクトは、Kubernetesの学習を支援するためのWebアプリケーションです。タスク管理機能とKubernetes演習環境を提供します。
+<img width="756" alt="スクリーンショット 2025-06-15 17 19 53" src="https://github.com/user-attachments/assets/936e7519-f30f-423a-a5a9-6b893852bcc9" />
+
 
 ## 機能
 
