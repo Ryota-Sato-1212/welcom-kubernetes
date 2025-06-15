@@ -3,18 +3,24 @@
 このプロジェクトは、Kubernetesの学習を支援するためのWebアプリケーションです。タスク管理機能とKubernetes演習環境を提供します。
 <img width="756" alt="スクリーンショット 2025-06-15 17 19 53" src="https://github.com/user-attachments/assets/936e7519-f30f-423a-a5a9-6b893852bcc9" />
 
-
 ## 機能
 
 1. **タスク管理**
    - 学習タスクの作成、編集、削除
    - ドラッグ＆ドロップによるタスクステータスの変更
-   - 優先度設定と進捗管理
+<img width="1482" alt="スクリーンショット 2025-06-15 17 21 13" src="https://github.com/user-attachments/assets/4dacd88f-686c-4357-b95d-208a05e76ab0" />
 
 2. **Kubernetes演習環境**
    - Minikubeを使用したローカルKubernetes環境
    - 基本的なKubernetesコマンドの実行
-   - チュートリアルと演習問題
+   - チュートリアル  
+![スクリーンショット 2025-06-15 17 21 30](https://github.com/user-attachments/assets/1a3b342f-b7d8-4c05-a788-6b93751defd1)
+
+3.技術ブログ投稿機能
+<img width="1508" alt="スクリーンショット 2025-06-15 17 20 12" src="https://github.com/user-attachments/assets/a240fe91-557e-4590-a2b4-32cdf650dde1" />
+
+4.AI検索機能
+<img width="1434" alt="スクリーンショット 2025-06-15 17 20 37" src="https://github.com/user-attachments/assets/90ef8d0c-5c80-4c43-a45f-6e7fff360476" />
 
 ## 必要条件
 
