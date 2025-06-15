@@ -47,6 +47,7 @@
         .top-link {
             display: inline-block;
             margin-bottom: 20px;
+            margin-right: 10px;
             background-color: #007acc;
             color: white;
             padding: 10px 14px;
@@ -69,22 +70,18 @@
         a.back-link:hover {
             text-decoration: underline;
         }
-
-        iframe.killercoda {
-            width: 100%;
-            height: 600px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            margin-top: 40px;
-        }
     </style>
 </head>
 <body>
 
     <h1>List of Technical Articles</h1>
 
-    <a class="top-link" href="{{ url_for('new_post') }}">＋ New Wiki</a>
-    <a class="top-link" href="{{ url_for('search') }}">🔍 AI Search</a>
+    <div class="top-links">
+        <a class="top-link" href="{{ url_for('new_post') }}">＋ New Wiki</a>
+        <a class="top-link" href="{{ url_for('search') }}">🔍 AI Search</a>
+        <a class="top-link" href="{{ url_for('tasks') }}">📋 Task Management</a>
+        <a class="top-link" href="{{ url_for('k8s_exercise') }}">🖥️ Kubernetes Exercise</a>
+    </div>
 
     {% for post in posts %}
     <div class="post">
@@ -93,16 +90,6 @@
         </h2>
     </div>
     {% endfor %}
-
-    <!-- Killercoda Kubernetes演習環境の埋め込み -->
-    <div class="post">
-        <h2 class="post-title">🎮 Kubernetes Exercise Environment (Killercoda)</h2>
-        <iframe
-            class="killercoda"
-            src="https://killercoda.com/playgrounds/scenario/kubernetes"
-            allowfullscreen>
-        </iframe>
-    </div>
 
     <a href="/" class="back-link">← Back</a>
 

@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Kubernetes Tutorial</h1>
+
+    <!-- チュートリアルリンク -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Basic Tutorial</h5>
+                    <p class="card-text">Learn the basics of Kubernetes with hands-on exercises.</p>
+                    <a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/" class="btn btn-primary" target="_blank">Start Tutorial</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Advanced Tutorial</h5>
+                    <p class="card-text">Learn advanced Kubernetes concepts and features.</p>
+                    <a href="https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/" class="btn btn-primary" target="_blank">Start Tutorial</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- クラスターステータス -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Cluster Status</h5>
+        </div>
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="mb-2">Minikube Status</h6>
+                    <p class="mb-0" id="minikubeStatus">Unknown</p>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="startMinikube()">
+                        <i class="fas fa-play"></i> Start
+                    </button>
+                    <button class="btn btn-danger" onclick="stopMinikube()">
+                        <i class="fas fa-stop"></i> Stop
+                    </button>
+                    <button class="btn btn-secondary" onclick="refreshStatus()">
+                        <i class="fas fa-sync"></i> Refresh
+                    </button>
+                    <button class="btn btn-warning" onclick="resetMinikube()">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ターミナル -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Terminal</h5>
+        </div>
+        <div class="card-body">
+            <div id="terminal-output" class="terminal-output mb-3"></div>
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="text" id="terminal-input" class="form-control" placeholder="Enter command...">
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.terminal-output {
+    background-color: #1e1e1e;
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 1rem;
+    border-radius: 4px;
+    height: 400px;
+    overflow-y: auto;
+}
+
+.command-line {
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.output-line {
+    color: #0f0;
+    margin-bottom: 0.5rem;
+    white-space: pre-wrap;
+}
+
+.error-line {
+    color: #f00;
+    margin-bottom: 0.5rem;
+}
+
+.prompt {
+    color: #0f0;
+    margin-right: 0.5rem;
+}
+
+#terminal-input {
+    background-color: #1e1e1e;
+    color: #fff;
+    border: none;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#terminal-input:focus {
+    background-color: #1e1e1e;
+    color: #fff;
+    box-shadow: none;
+}
+
+.input-group-text {
+    background-color: #1e1e1e;
+    color: #0f0;
+    border: none;
+    font-family: 'Courier New', Courier, monospace;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const commandInput = document.getElementById('terminal-input');
+    const outputDiv = document.getElementById('terminal-output');
+    
+    // コマンド入力時の処理
+    commandInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            const command = commandInput.value.trim();
+            if (command) {
+                executeCommand(command);
+                commandInput.value = '';
+            }
+        }
+    });
+
+    // 初期状態を確認
+    refreshStatus();
+});
+
+function executeCommand(command) {
+    const outputDiv = document.getElementById('terminal-output');
+    const commandLine = document.createElement('div');
+    commandLine.className = 'command-line';
+    commandLine.innerHTML = `<span class="prompt">$</span> ${command}`;
+    outputDiv.appendChild(commandLine);
+
+    fetch('/k8s_exercise/execute', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ command: command })
+    })
+    .then(response => response.json())
+    .then(data => {
+        const outputLine = document.createElement('div');
+        outputLine.className = 'output-line';
+        outputLine.textContent = data.output;
+        outputDiv.appendChild(outputLine);
+        
+        // スクロールを最下部に移動
+        outputDiv.scrollTop = outputDiv.scrollHeight;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        const errorLine = document.createElement('div');
+        errorLine.className = 'error-line';
+        errorLine.textContent = 'Command execution failed';
+        outputDiv.appendChild(errorLine);
+    });
+}
+
+function refreshStatus() {
+    fetch('/k8s_exercise/status')
+        .then(response => response.json())
+        .then(data => {
+            const statusElement = document.getElementById('minikubeStatus');
+            if (data.status === 'success') {
+                if (data.message.includes('Running')) {
+                    statusElement.textContent = 'Running';
+                    statusElement.className = 'text-success';
+                } else {
+                    statusElement.textContent = 'Stopped';
+                    statusElement.className = 'text-danger';
+                }
+            } else {
+                statusElement.textContent = 'Error';
+                statusElement.className = 'text-danger';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('minikubeStatus').textContent = 'Error';
+            document.getElementById('minikubeStatus').className = 'text-danger';
+        });
+}
+
+function startMinikube() {
+    executeCommand('minikube start');
+}
+
+function stopMinikube() {
+    executeCommand('minikube stop');
+}
+
+function resetMinikube() {
+    if (confirm('Are you sure you want to reset Minikube? This will delete all resources.')) {
+        executeCommand('minikube delete');
+    }
+}
+</script>
+{% endblock %} 
